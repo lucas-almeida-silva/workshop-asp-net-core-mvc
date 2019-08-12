@@ -15,9 +15,12 @@ namespace SalesWebMvc.Controllers
             return View();
         }
 
+        //IActionResult é uma interface, é o supertipo genérico para todo o resultado de uma ação, que se desdobra em vários tipos
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            //ViewData - Coleções pares de chaves e valores
+            ViewData["Message"] = "Salles web MVC App from C# Course.";
+            ViewData["Author"] = "Lucas Almeida";
 
             return View();
         }

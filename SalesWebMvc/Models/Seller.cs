@@ -12,8 +12,9 @@ namespace SalesWebMvc.Models
         public DateTime BirthDate { get; set; }
         public double BaseSalary { get; set; }
         public Department Department { get; set; }
+        public int DepartmentId { get; set; }//com o isso framework detecta que vc quer guarda o id do dp, e se colocar como int, o int não pode ser nulo, e o dado vai ser guardado corretamente
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
-
+        
         public Seller()
         {
         }

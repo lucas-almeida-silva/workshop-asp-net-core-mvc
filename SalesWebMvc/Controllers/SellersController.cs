@@ -40,6 +40,13 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]//anotação para prevenir que a aplicação sofra ataques csrf, quando alguém aproveita a sua sessão de autenticação e envia dados maliciosos
         public IActionResult Create(Seller seller) //essa operação recebe um objeto vendedor que veio na requisição, para receber este objeto e instanciar o vendedor, basta colocá-lo como parâmetro, é um recurso do EntityFramework
         {
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));//redirecionar para o index
 
@@ -106,7 +113,14 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
-            if(id != seller.Id)
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
+            if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
